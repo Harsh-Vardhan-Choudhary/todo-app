@@ -1,23 +1,33 @@
+import { useState } from 'react'
 import './counter.css'
+import CounterButton from './CounterButton'
+
+import { PropTypes } from 'prop-types'
 
 export default function Counter() {
 
-    function incrementCounterFunction() {
-        console.log('increment clicked')
+    const [count, setCount] = useState(0);
+
+    function incrementCounterParentFunction(by) {
+        setCount(count+by)
     }
 
-    return (
-        <div className="Counter">
-            <span className="count">0</span>
-            <div>
-                {/* here if we introduces (), paranthesis in function then the function would be called 
-                when we will click the button, it will call for several times 
-                this is because the onClick is mapped to a function call and then the button would not work
+    function decrementCounterParentFunction(by) {
+        setCount(count-by)
+    }
 
-                We want to map onClick to function itself
-                */}
-                <button className="counterButton" onClick={incrementCounterFunction}>+1</button>
-            </div>
-        </div>
+    function resetParentFunction() {
+        setCount(0)
+    }
+
+
+    return (
+        <>
+        <span className="count">{count}</span>
+        <CounterButton by={1} incrementMethod={incrementCounterParentFunction} decrementMethod={decrementCounterParentFunction}/>
+        <CounterButton by={2} incrementMethod={incrementCounterParentFunction} decrementMethod={decrementCounterParentFunction}/>
+        <CounterButton by={5} incrementMethod={incrementCounterParentFunction} decrementMethod={decrementCounterParentFunction}/>
+        <button className="resetButton" onClick={resetParentFunction}>Reset</button>
+        </>
     )
 }
