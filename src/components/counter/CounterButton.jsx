@@ -5,13 +5,13 @@ export default function CounterButton({by, incrementMethod, decrementMethod}) {
 
     //here we are deconstructing the array
 
-    function incrementCounterFunction() {
-        incrementMethod(by)
-    }
+    // function incrementCounterFunction() {
+    //     incrementMethod(by)
+    // }
 
-    function decrementCounterFunction() {
-        decrementMethod(by)
-    }
+    // function decrementCounterFunction() {
+    //     decrementMethod(by)
+    // }
 
     return (
         <div className="Counter">
@@ -22,8 +22,15 @@ export default function CounterButton({by, incrementMethod, decrementMethod}) {
 
                 We want to map onClick to function itself
                 */}
-                <button className="counterButton" onClick={incrementCounterFunction}>+{by}</button>
-                <button className="counterButton" onClick={decrementCounterFunction}>-{by}</button>
+
+
+                {/* <button className="counterButton" onClick={incrementCounterFunction}>+{by}</button>
+                <button className="counterButton" onClick={decrementCounterFunction}>-{by}</button> */}
+
+                <button className="counterButton" onClick={() => incrementMethod(by)} >+{by}</button>
+                <button className="counterButton" onClick={() => decrementMethod(by)}>-{by}</button>
+
+                
             </div>
         </div>
     )
