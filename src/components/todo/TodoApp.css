@@ -1,0 +1,12 @@
+label, input, button {
+    margin: 10px;
+    padding: 5px;
+}
+
+.successMessage {
+    color: rgb(13, 219, 13);
+}
+
+.errorMessage {
+    color: rgb(224, 16, 16);
+}
