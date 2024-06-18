@@ -1,18 +1,27 @@
 import { useState } from 'react'
 import './TodoApp.css'
 
+import {BrowserRouter, Routes, Route, useNavigate, useParams} from 'react-router-dom'
+
 export default function TodoApp() {
     return (
         <div className="TodoApp">
-            <LoginComponent />
-            {/* <WelcomeComponent /> */}
+            <BrowserRouter>
+                <Routes>
+                    <Route path='/' element={<LoginComponent/>}></Route>
+                    <Route path='/login' element={<LoginComponent/>}></Route>
+                    <Route path='/welcome/:username' element={<WelcomeComponent/>}></Route>
+                    <Route path='*' element={<ErrorComponent/>}></Route>
+                </Routes>
+            </BrowserRouter>
         </div>
     )
 }
 
 
-
 function LoginComponent() {
+
+    const navigate = useNavigate();     //this useNavigate() hook will return us a function to navigate back
 
     const[username, setUsername] = useState('harsh')
 
@@ -35,6 +44,7 @@ function LoginComponent() {
         if(username==='harsh' && password==='dummy') {
             setShowSuccessMessage(true)
             setShowErrorMessage(false)
+            navigate(`/welcome/${username}`)
         }
 
         else {
@@ -68,6 +78,7 @@ function LoginComponent() {
     return (
         <div className="Login">
             <div className="LoginForm">
+                <h1>Time to Login!</h1>
                 <div>
 
                     {/* <SuccessMessageComponent/>
@@ -91,9 +102,27 @@ function LoginComponent() {
 }
 
 function WelcomeComponent() {
+
+    const params = useParams()      //here it will return an object
+    const {username} = useParams()
     return (
         <div className="Welcome">
-            Welcome Component
+            <h1>Welcome {username}</h1>
+            <div>
+                Welcome Component
+            </div>
         </div>
     )
 }
+
+function ErrorComponent() {
+    return (
+        <div className="ErrorComponent">
+            <h2>We are working really hard</h2>
+            <div>
+                Apoligies for 404. Reach out to our team at ABc_DEF-GHIJ
+            </div>
+        </div>
+    )
+}
+
