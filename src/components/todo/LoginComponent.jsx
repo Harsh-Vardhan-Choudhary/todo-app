@@ -1,9 +1,13 @@
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 
+import { useAuth } from './security/AuthContext'
+
 export default function LoginComponent() {
 
     const navigate = useNavigate();     //this useNavigate() hook will return us a function to navigate back
+
+    const authContext = useAuth()
 
     const[username, setUsername] = useState('harsh')
 
@@ -24,12 +28,14 @@ export default function LoginComponent() {
     function handleSubmit(event) {
 
         if(username==='harsh' && password==='dummy') {
+            authContext.setAuthenticated(true)
             setShowSuccessMessage(true)
             setShowErrorMessage(false)
             navigate(`/welcome/${username}`)
         }
 
         else {
+            authContext.setAuthenticated(false)
             setShowSuccessMessage(false)
             setShowErrorMessage(true)
         }
