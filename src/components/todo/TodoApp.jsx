@@ -10,20 +10,24 @@ import ListTodoComponent from './ListToDoComponent'
 import FooterComponent from './FooterComponent'
 import ErrorComponent from './ErrorComponent'
 
+import AuthProvider from './security/AuthContext'
+
 export default function TodoApp() {
     return (
         <div className="TodoApp">
             <BrowserRouter>
-            <HeaderComponent/>
-                <Routes>
-                    <Route path='/' element={<LoginComponent/>} /> 
-                    <Route path='/login' element={<LoginComponent/>} /> 
-                    <Route path='/welcome/:username' element={<WelcomeComponent/>} /> 
-                    <Route path='/todos' element={<ListTodoComponent/>} /> 
-                    <Route path='*' element={<ErrorComponent/>} /> 
-                    <Route path='/logout' element={<LogoutComponent/>} /> 
-                </Routes>
-            <FooterComponent/>
+            <AuthProvider>
+                <HeaderComponent/>
+                    <Routes>
+                        <Route path='/' element={<LoginComponent/>} /> 
+                        <Route path='/login' element={<LoginComponent/>} /> 
+                        <Route path='/welcome/:username' element={<WelcomeComponent/>} /> 
+                        <Route path='/todos' element={<ListTodoComponent/>} /> 
+                        <Route path='*' element={<ErrorComponent/>} /> 
+                        <Route path='/logout' element={<LogoutComponent/>} /> 
+                    </Routes>
+                <FooterComponent/>
+            </AuthProvider>
             </BrowserRouter>
         </div>
     )
