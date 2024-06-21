@@ -13,8 +13,6 @@ export default function LoginComponent() {
 
     const[password, setpassword] = useState('')
 
-    const[showSuccessMessage, setShowSuccessMessage] = useState(false)
-
     const[showErrorMessage, setShowErrorMessage] = useState(false)
 
     function handleUsernameChange(event) {
@@ -27,52 +25,20 @@ export default function LoginComponent() {
 
     function handleSubmit(event) {
 
-        if(username==='harsh' && password==='dummy') {
-            authContext.setAuthenticated(true)
-            setShowSuccessMessage(true)
-            setShowErrorMessage(false)
+        if(authContext.login(username, password)) {
             navigate(`/welcome/${username}`)
         }
 
         else {
-            authContext.setAuthenticated(false)
-            setShowSuccessMessage(false)
             setShowErrorMessage(true)
         }
     }
-
-
-    // Use PascalCase for React component names, so SuccessMessageComponent & ErrorMessageComponent is preferred
-    
-    // function SuccessMessageComponent() {
-
-    //     if(showSuccessMessage) {
-    //         return <div className="successMessage">Authenticated Successfully</div>
-    //     }
-        
-    //     return null   
-    // }
-    
-    // function ErrorMessageComponent() {
-    
-    //     if(showErrorMessage) {
-    //         return <div className="errorMessage">Authentication Failed. Please check your credentials.</div>
-    //     }
-        
-    //     return null   
-    // }
-
 
     return (
         <div className="Login">
             <div className="LoginForm">
                 <h1>Time to Login!</h1>
                 <div>
-
-                    {/* <SuccessMessageComponent/>
-                    <ErrorMessageComponent/> */}
-
-                    {showSuccessMessage && <div className="successMessage">Authenticated Successfully</div>}
                     {showErrorMessage && <div className="errorMessage">Authentication Failed. Please check your credentials.</div>}
                     <label>User Name:</label>
                     <input type="text" name="username" value={username} onChange={handleUsernameChange}/>
